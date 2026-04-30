@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,11 +19,17 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    // hi
-    public function boot()
+    // hiuse Illuminate\Support\Facades\URL;
+
+public function boot()
 {
-    if (env('APP_ENV') === 'production') {
+    if (app()->environment('production')) {
         URL::forceScheme('https');
+
+        Request::setTrustedProxies(
+            ['*'],
+            Request::HEADER_X_FORWARDED_ALL
+        );
     }
 }
 }
