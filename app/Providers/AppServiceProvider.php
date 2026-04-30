@@ -25,11 +25,6 @@ public function boot()
 {
     if (app()->environment('production')) {
         URL::forceScheme('https');
-
-        Request::setTrustedProxies(
-            ['*'],
-            Request::HEADER_X_FORWARDED_ALL
-        );
     }
 }
 }
